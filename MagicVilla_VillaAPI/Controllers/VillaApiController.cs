@@ -31,7 +31,7 @@ public class VillaApiController : ControllerBase
         {
             IEnumerable<Villa?> villaList = await _dbVilla.GetAllAsync();
             _response.StatusCode = HttpStatusCode.OK;
-            _response.Result = _mapper.Map<List<VillaDTO>>(villaList);
+            _response.Result = _mapper.Map<List<VillaDto>>(villaList);
             return Ok(_response);
         }
         catch (Exception e)
@@ -66,7 +66,7 @@ public class VillaApiController : ControllerBase
             }
 
             _response.StatusCode = HttpStatusCode.OK;
-            _response.Result = _mapper.Map<VillaDTO>(villa);
+            _response.Result = _mapper.Map<VillaDto>(villa);
 
             return Ok(_response);
         }
@@ -81,9 +81,8 @@ public class VillaApiController : ControllerBase
 
     [HttpPost]
     [ProducesResponseType(StatusCodes.Status201Created)]
-    [ProducesResponseType(StatusCodes.Status404NotFound)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
-    public async Task<ActionResult<ApiResponse>> CreateVilla([FromBody] VillaCreateDTO? createDto)
+    public async Task<ActionResult<ApiResponse>> CreateVilla([FromBody] VillaCreateDto? createDto)
     {
         try
         {
@@ -103,7 +102,7 @@ public class VillaApiController : ControllerBase
             await _dbVilla.CreateAsync(villa);
 
             _response.StatusCode = HttpStatusCode.Created;
-            _response.Result = _mapper.Map<VillaDTO>(villa);
+            _response.Result = _mapper.Map<VillaDto>(villa);
 
             return CreatedAtRoute("GetVilla", new { id = villa.Id }, _response);
         }
@@ -153,7 +152,7 @@ public class VillaApiController : ControllerBase
     [HttpPut("{id:int}")]
     [ProducesResponseType(StatusCodes.Status204NoContent)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
-    public async Task<ActionResult<ApiResponse>> UpdateVilla(int id, [FromBody] VillaUpdateDTO? updateDto)
+    public async Task<ActionResult<ApiResponse>> UpdateVilla(int id, [FromBody] VillaUpdateDto? updateDto)
     {
         try
         {
@@ -183,7 +182,7 @@ public class VillaApiController : ControllerBase
     [HttpPatch("{id:int}")]
     [ProducesResponseType(StatusCodes.Status204NoContent)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
-    public async Task<IActionResult> UpdatePartialVilla(int id, JsonPatchDocument<VillaUpdateDTO>? patchDto)
+    public async Task<IActionResult> UpdatePartialVilla(int id, JsonPatchDocument<VillaUpdateDto>? patchDto)
     {
         if (patchDto == null || id == 0)
         {
@@ -192,7 +191,7 @@ public class VillaApiController : ControllerBase
 
         var villa = await _dbVilla.GetAsync(x => x.Id == id, false);
 
-        VillaUpdateDTO villaDto = _mapper.Map<VillaUpdateDTO>(villa);
+        VillaUpdateDto villaDto = _mapper.Map<VillaUpdateDto>(villa);
 
         if (villa == null)
         {
