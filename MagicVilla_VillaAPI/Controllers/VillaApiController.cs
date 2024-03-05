@@ -82,7 +82,7 @@ public class VillaApiController : ControllerBase
     [HttpPost]
     [ProducesResponseType(StatusCodes.Status201Created)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
-    public async Task<ActionResult<ApiResponse>> CreateVilla([FromBody] VillaCreateDto? createDto)
+    public async Task<ActionResult<ApiResponse>> CreateVilla([FromBody] VillaCreateDto createDto)
     {
         try
         {
