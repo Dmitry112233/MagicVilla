@@ -55,8 +55,6 @@ public class VillaNumberApiController : ControllerBase
         {
             if (id == 0)
             {
-                _response.StatusCode = HttpStatusCode.BadRequest;
-                _response.IsSuccess = false;
                 return BadRequest(_response);
             }
 
@@ -64,11 +62,8 @@ public class VillaNumberApiController : ControllerBase
 
             if (villaNumber == null)
             {
-                _response.StatusCode = HttpStatusCode.NotFound;
-                _response.IsSuccess = false;
                 return NotFound(_response);
             }
-
             _response.StatusCode = HttpStatusCode.OK;
             _response.Result = _mapper.Map<VillaNumberDto>(villaNumber);
             return Ok(_response);
@@ -91,24 +86,19 @@ public class VillaNumberApiController : ControllerBase
         {
             if (await _dbVillaNumber.GetAsync(x => x.VillaNo == createDto.VillaNo) != null)
             {
-                ModelState.AddModelError("CustomError", "Villa number already Exist!");
+                ModelState.AddModelError("ErrorMessages", "Villa number already Exist!");
                 return BadRequest(ModelState);
             }
 
             if (createDto == null)
             {
-                _response.IsSuccess = false;
-                _response.StatusCode = HttpStatusCode.BadRequest;
-                _response.ErrorMessages.Add("Passing object is nul");
                 return BadRequest(_response);
             }
             
             if (await _dbVilla.GetAsync(x => x.Id == createDto.VillaId) == null)
             {
-                _response.IsSuccess = false;
-                _response.StatusCode = HttpStatusCode.BadRequest;
-                _response.ErrorMessages.Add("villa id is not exist");
-                return BadRequest(_response);
+                ModelState.AddModelError("ErrorMessages", "villa id is not exist");
+                return BadRequest(ModelState);
             }
 
             var villaNumber = _mapper.Map<VillaNumber>(createDto);
@@ -161,7 +151,7 @@ public class VillaNumberApiController : ControllerBase
     [HttpPut("{id:int}")]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
-    public async Task<ActionResult<ApiResponse>> UpdateVilla(int id, [FromBody] VillaNumberDto updatedDto)
+    public async Task<ActionResult<ApiResponse>> UpdateVillaNumber(int id, [FromBody] VillaNumberDto updatedDto)
     {
         try
         {
@@ -169,23 +159,19 @@ public class VillaNumberApiController : ControllerBase
 
             if (villaNumber == null || id != updatedDto.VillaNo)
             {
-                _response.StatusCode = HttpStatusCode.BadRequest;
-                _response.IsSuccess = false;
-                _response.ErrorMessages.Add("Some problems with villa number id");
-                return BadRequest(_response);
+                return BadRequest();
             }
             if (await _dbVilla.GetAsync(x => x.Id == updatedDto.VillaId) == null)
             {
-                _response.IsSuccess = false;
-                _response.StatusCode = HttpStatusCode.BadRequest;
-                _response.ErrorMessages.Add("villa id is not exist");
-                return BadRequest(_response);
+                ModelState.AddModelError("ErrorMessages", "villa id is not exist model state");
+                return BadRequest(ModelState);
             }
 
             var villaNumberToUpdate = _mapper.Map<VillaNumber>(updatedDto);
             await _dbVillaNumber.UpdateAsync(villaNumberToUpdate);
 
             _response.StatusCode = HttpStatusCode.NoContent;
+            _response.IsSuccess = true;
 
             return Ok(_response);
         }
@@ -226,8 +212,6 @@ public class VillaNumberApiController : ControllerBase
             
             if (await _dbVilla.GetAsync(x => x.Id == villaNumberDto.VillaId) == null)
             {
-                _response.IsSuccess = false;
-                _response.StatusCode = HttpStatusCode.BadRequest;
                 _response.ErrorMessages.Add("VillaId is not exist");
                 return BadRequest(_response);
             }
