@@ -6,7 +6,8 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace MagicVilla_VillaAPI.Controllers;
 
-[Route("api/[controller]")]
+[Route("api/v{version:apiVersion}/[controller]")]
+[ApiVersionNeutral]
 [ApiController]
 public class UsersApiController : Controller
 {

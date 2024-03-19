@@ -1,4 +1,5 @@
 using System.Net;
+using System.Net.Http.Headers;
 using System.Text;
 using MagicVilla_Web.Models;
 using MagicVilla_Web.Services.IServices;
@@ -10,7 +11,7 @@ namespace MagicVilla_Web.Services;
 public class BaseService : IBaseService
 {
     public ApiResponse responseModel { get; set; }
-    
+
     public IHttpClientFactory httpClient { get; set; }
 
     public BaseService(IHttpClientFactory httpClient)
@@ -18,7 +19,7 @@ public class BaseService : IBaseService
         responseModel = new();
         this.httpClient = httpClient;
     }
-    
+
     public async Task<T> SendAsync<T>(ApiRequest apiRequest)
     {
         try
@@ -27,10 +28,11 @@ public class BaseService : IBaseService
             HttpRequestMessage message = new HttpRequestMessage();
             message.Headers.Add("Accept", "application/json");
             message.RequestUri = new Uri(apiRequest.Url);
-            
+
             if (apiRequest.Data != null)
             {
-                message.Content = new StringContent(JsonConvert.SerializeObject(apiRequest.Data), Encoding.UTF8, "application/json");
+                message.Content = new StringContent(JsonConvert.SerializeObject(apiRequest.Data), Encoding.UTF8,
+                    "application/json");
             }
 
             switch (apiRequest.ApiType)
@@ -50,20 +52,26 @@ public class BaseService : IBaseService
             }
 
             HttpResponseMessage apiResponse = null;
+
+            if (!string.IsNullOrEmpty(apiRequest.Token))
+            {
+                client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", apiRequest.Token);
+            }
+
             apiResponse = await client.SendAsync(message);
             var apiContent = await apiResponse.Content.ReadAsStringAsync();
 
             try
             {
                 ApiResponse responseApi = JsonConvert.DeserializeObject<ApiResponse>(apiContent);
-                if (apiResponse.StatusCode == HttpStatusCode.BadRequest || 
-                    apiResponse.StatusCode == HttpStatusCode.NotFound)
+                if (responseApi != null && (apiResponse.StatusCode == HttpStatusCode.BadRequest ||
+                                            apiResponse.StatusCode == HttpStatusCode.NotFound))
                 {
                     responseApi.StatusCode = System.Net.HttpStatusCode.BadRequest;
                     responseApi.IsSuccess = false;
                     var serializedDto = JsonConvert.SerializeObject(responseApi);
                     var returnObj = JsonConvert.DeserializeObject<T>(serializedDto);
-            
+
                     return returnObj;
                 }
             }
@@ -72,7 +80,7 @@ public class BaseService : IBaseService
                 var exceptionResponse = JsonConvert.DeserializeObject<T>(apiContent);
                 return exceptionResponse;
             }
-            
+
             var response = JsonConvert.DeserializeObject<T>(apiContent);
             return response;
         }
@@ -86,7 +94,7 @@ public class BaseService : IBaseService
 
             var serializedDto = JsonConvert.SerializeObject(dto);
             var response = JsonConvert.DeserializeObject<T>(serializedDto);
-            
+
             return response;
         }
     }

@@ -16,50 +16,55 @@ public class VillaNumberService : BaseService, IVillaNumberService
         villaUrl = configuration.GetValue<string>("ServiceUrl:VillaAPI");
     }
 
-    public Task<T> GetAllAsync<T>()
+    public Task<T> GetAllAsync<T>(string token)
     {
         return SendAsync<T>(new ApiRequest()
         {
             ApiType = ApiType.GET,
-            Url =  villaUrl + "/api/VillaNumberApi"
+            Url =  villaUrl + "/api/v1/VillaNumberApi",
+            Token = token
         });
     }
 
-    public Task<T> GetAsync<T>(int id)
+    public Task<T> GetAsync<T>(int id, string token)
     {
         return SendAsync<T>(new ApiRequest()
         {
             ApiType = ApiType.GET,
-            Url = villaUrl + $"/api/VillaNumberApi/{id}"
+            Url = villaUrl + $"/api/v1/VillaNumberApi/{id}",
+            Token = token
         });
     }
 
-    public Task<T> CreateAsync<T>(VillaNumberCreateDto dto)
+    public Task<T> CreateAsync<T>(VillaNumberCreateDto dto, string token)
     {
         return SendAsync<T>(new ApiRequest()
         {
             ApiType = ApiType.POST,
-            Url = villaUrl + "/api/VillaNumberApi",
-            Data = dto
+            Url = villaUrl + "/api/v1/VillaNumberApi",
+            Data = dto,
+            Token = token
         });
     }
 
-    public Task<T> UpdateAsync<T>(VillaNumberUpdateDto dto)
+    public Task<T> UpdateAsync<T>(VillaNumberUpdateDto dto, string token)
     {
         return SendAsync<T>(new ApiRequest()
         {
             ApiType = ApiType.PUT,
-            Url = villaUrl + $"/api/VillaNumberApi/{dto.VillaNo}",
-            Data = dto
+            Url = villaUrl + $"/api/v1/VillaNumberApi/{dto.VillaNo}",
+            Data = dto,
+            Token = token
         });
     }
 
-    public Task<T> DeleteAsync<T>(int id)
+    public Task<T> DeleteAsync<T>(int id, string token)
     {
         return SendAsync<T>(new ApiRequest()
         {
             ApiType = ApiType.DELETE,
-            Url = villaUrl + $"/api/VillaNumberApi/{id}"
+            Url = villaUrl + $"/api/v1/VillaNumberApi/{id}",
+            Token = token
         });
     }
 }

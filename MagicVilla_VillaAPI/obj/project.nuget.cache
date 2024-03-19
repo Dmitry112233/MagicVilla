@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "AoO+l7m+0vKU0AY16I0niOW+gUpvJNMy58RpU55sy53444a4ohRFEqIfcTA7W7/1wn3RrXUwrtJkSuNrTtV0ow==",
+  "dgSpecHash": "I9y5gbhtxrkAFsG3ip3rGPem9E9NTcE8bvQi4IrBRYrZGVT1uIynl9Vf9kPE7XXeFMaqKS5IS6IC3ZXPTF1Urg==",
   "success": true,
   "projectFilePath": "/Users/dmitrys/repositories/MagicVilla/MagicVilla_VillaAPI/MagicVilla_VillaAPI.csproj",
   "expectedPackageFiles": [
@@ -11,6 +11,8 @@
     "/Users/dmitrys/.nuget/packages/microsoft.aspnetcore.authentication.jwtbearer/7.0.16/microsoft.aspnetcore.authentication.jwtbearer.7.0.16.nupkg.sha512",
     "/Users/dmitrys/.nuget/packages/microsoft.aspnetcore.jsonpatch/7.0.16/microsoft.aspnetcore.jsonpatch.7.0.16.nupkg.sha512",
     "/Users/dmitrys/.nuget/packages/microsoft.aspnetcore.mvc.newtonsoftjson/7.0.16/microsoft.aspnetcore.mvc.newtonsoftjson.7.0.16.nupkg.sha512",
+    "/Users/dmitrys/.nuget/packages/microsoft.aspnetcore.mvc.versioning/5.1.0/microsoft.aspnetcore.mvc.versioning.5.1.0.nupkg.sha512",
+    "/Users/dmitrys/.nuget/packages/microsoft.aspnetcore.mvc.versioning.apiexplorer/5.1.0/microsoft.aspnetcore.mvc.versioning.apiexplorer.5.1.0.nupkg.sha512",
     "/Users/dmitrys/.nuget/packages/microsoft.aspnetcore.openapi/7.0.11/microsoft.aspnetcore.openapi.7.0.11.nupkg.sha512",
     "/Users/dmitrys/.nuget/packages/microsoft.bcl.asyncinterfaces/1.1.1/microsoft.bcl.asyncinterfaces.1.1.1.nupkg.sha512",
     "/Users/dmitrys/.nuget/packages/microsoft.csharp/4.7.0/microsoft.csharp.4.7.0.nupkg.sha512",

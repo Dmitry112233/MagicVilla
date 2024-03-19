@@ -16,50 +16,55 @@ public class VillaService : BaseService, IVillaService
         villaUrl = configuration.GetValue<string>("ServiceUrl:VillaAPI");
     }
 
-    public Task<T> GetAllAsync<T>()
+    public Task<T> GetAllAsync<T>(string token)
     {
         return SendAsync<T>(new ApiRequest()
         {
             ApiType = Sd.ApiType.GET,
-            Url = villaUrl + "/api/VillaApi"
+            Url = villaUrl + "/api/v1/VillaApi",
+            Token = token
         });
     }
 
-    public Task<T> GetAsync<T>(int id)
+    public Task<T> GetAsync<T>(int id, string token)
     {
         return SendAsync<T>(new ApiRequest()
         {
             ApiType = Sd.ApiType.GET,
-            Url = villaUrl + "/api/VillaApi/" + id
+            Url = villaUrl + "/api/v1/VillaApi/" + id,
+            Token = token
         });
     }
 
-    public Task<T> CreateAsync<T>(VillaCreateDto dto)
+    public Task<T> CreateAsync<T>(VillaCreateDto dto, string token)
     {
         return SendAsync<T>(new ApiRequest()
         {
             ApiType = Sd.ApiType.POST,
             Data = dto,
-            Url = villaUrl + "/api/VillaApi"
+            Url = villaUrl + "/api/v1/VillaApi",
+            Token = token
         });
     }
 
-    public Task<T> UpdateAsync<T>(VillaUpdateDto dto)
+    public Task<T> UpdateAsync<T>(VillaUpdateDto dto, string token)
     {
         return SendAsync<T>(new ApiRequest()
         {
             ApiType = Sd.ApiType.PUT,
             Data = dto,
-            Url = villaUrl + "/api/VillaApi/" + dto.Id
+            Url = villaUrl + "/api/v1/VillaApi/" + dto.Id,
+            Token = token
         });
     }
 
-    public Task<T> DeleteAsync<T>(int id)
+    public Task<T> DeleteAsync<T>(int id, string token)
     {
         return SendAsync<T>(new ApiRequest()
         {
             ApiType = Sd.ApiType.DELETE,
-            Url = villaUrl + "/api/VillaApi/" + id
+            Url = villaUrl + "/api/v1/VillaApi/" + id,
+            Token = token
         });
     }
 }
