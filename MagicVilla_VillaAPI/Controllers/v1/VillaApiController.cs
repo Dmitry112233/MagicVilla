@@ -1,3 +1,4 @@
+using System.Text.Json;
 using AutoMapper;
 using MagicVilla_VillaAPI.Models;
 using MagicVilla_VillaAPI.Models.Dto;
@@ -28,11 +29,28 @@ public class VillaApiController : ControllerBase
     [ProducesResponseType(StatusCodes.Status401Unauthorized)]
     [ProducesResponseType(StatusCodes.Status403Forbidden)]
     [ProducesResponseType(StatusCodes.Status200OK)]
-    public async Task<ActionResult<ApiResponse>> GetVillas()
+    [ResponseCache(CacheProfileName = "Default30")]
+    public async Task<ActionResult<ApiResponse>> GetVillas([FromQuery(Name = "filterOccupancy")]int? occupancy, [FromQuery(Name = "searchName")]string? search, int pageSize = 0, int pageNumber = 1)
     {
         try
         {
-            IEnumerable<Villa?> villaList = await _dbVilla.GetAllAsync();
+            IEnumerable<Villa> villaList;
+            
+            if (occupancy > 0)
+            {
+                villaList = await _dbVilla.GetAllAsync(u => u.Occupancy == occupancy, pageSize:pageSize, pageNumber:pageNumber);
+            }
+            else
+            {
+                villaList = await _dbVilla.GetAllAsync(pageSize:pageSize, pageNumber:pageNumber);
+            }
+
+            if (!string.IsNullOrEmpty(search))
+            {
+                villaList = villaList.Where(u => u.Name.ToLower().Contains(search));
+            }
+            var pagination = new Pagination { PageNumber = pageNumber, PageSize = pageSize };
+            Response.Headers.Add("X-Pagination", JsonSerializer.Serialize(pagination));
             _response.Result = _mapper.Map<List<VillaDto>>(villaList);
             return Ok(_response);
         }

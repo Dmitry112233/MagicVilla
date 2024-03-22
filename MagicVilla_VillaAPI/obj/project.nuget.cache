@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "I9y5gbhtxrkAFsG3ip3rGPem9E9NTcE8bvQi4IrBRYrZGVT1uIynl9Vf9kPE7XXeFMaqKS5IS6IC3ZXPTF1Urg==",
+  "dgSpecHash": "QiCRI3SADXc5H1boPg8jMk80xVJ2OuqmjLFzS+lalRdd9sps8Nhb5nJ4aJCv0N6pUYj/kwIJhYllNHj8gNLZSg==",
   "success": true,
   "projectFilePath": "/Users/dmitrys/repositories/MagicVilla/MagicVilla_VillaAPI/MagicVilla_VillaAPI.csproj",
   "expectedPackageFiles": [
@@ -9,6 +9,9 @@
     "/Users/dmitrys/.nuget/packages/azure.identity/1.10.3/azure.identity.1.10.3.nupkg.sha512",
     "/Users/dmitrys/.nuget/packages/humanizer.core/2.14.1/humanizer.core.2.14.1.nupkg.sha512",
     "/Users/dmitrys/.nuget/packages/microsoft.aspnetcore.authentication.jwtbearer/7.0.16/microsoft.aspnetcore.authentication.jwtbearer.7.0.16.nupkg.sha512",
+    "/Users/dmitrys/.nuget/packages/microsoft.aspnetcore.cryptography.internal/7.0.0/microsoft.aspnetcore.cryptography.internal.7.0.0.nupkg.sha512",
+    "/Users/dmitrys/.nuget/packages/microsoft.aspnetcore.cryptography.keyderivation/7.0.0/microsoft.aspnetcore.cryptography.keyderivation.7.0.0.nupkg.sha512",
+    "/Users/dmitrys/.nuget/packages/microsoft.aspnetcore.identity.entityframeworkcore/7.0.0/microsoft.aspnetcore.identity.entityframeworkcore.7.0.0.nupkg.sha512",
     "/Users/dmitrys/.nuget/packages/microsoft.aspnetcore.jsonpatch/7.0.16/microsoft.aspnetcore.jsonpatch.7.0.16.nupkg.sha512",
     "/Users/dmitrys/.nuget/packages/microsoft.aspnetcore.mvc.newtonsoftjson/7.0.16/microsoft.aspnetcore.mvc.newtonsoftjson.7.0.16.nupkg.sha512",
     "/Users/dmitrys/.nuget/packages/microsoft.aspnetcore.mvc.versioning/5.1.0/microsoft.aspnetcore.mvc.versioning.5.1.0.nupkg.sha512",
@@ -32,6 +35,8 @@
     "/Users/dmitrys/.nuget/packages/microsoft.extensions.dependencyinjection/7.0.0/microsoft.extensions.dependencyinjection.7.0.0.nupkg.sha512",
     "/Users/dmitrys/.nuget/packages/microsoft.extensions.dependencyinjection.abstractions/7.0.0/microsoft.extensions.dependencyinjection.abstractions.7.0.0.nupkg.sha512",
     "/Users/dmitrys/.nuget/packages/microsoft.extensions.dependencymodel/7.0.0/microsoft.extensions.dependencymodel.7.0.0.nupkg.sha512",
+    "/Users/dmitrys/.nuget/packages/microsoft.extensions.identity.core/7.0.0/microsoft.extensions.identity.core.7.0.0.nupkg.sha512",
+    "/Users/dmitrys/.nuget/packages/microsoft.extensions.identity.stores/7.0.0/microsoft.extensions.identity.stores.7.0.0.nupkg.sha512",
     "/Users/dmitrys/.nuget/packages/microsoft.extensions.logging/7.0.0/microsoft.extensions.logging.7.0.0.nupkg.sha512",
     "/Users/dmitrys/.nuget/packages/microsoft.extensions.logging.abstractions/7.0.0/microsoft.extensions.logging.abstractions.7.0.0.nupkg.sha512",
     "/Users/dmitrys/.nuget/packages/microsoft.extensions.options/7.0.0/microsoft.extensions.options.7.0.0.nupkg.sha512",
