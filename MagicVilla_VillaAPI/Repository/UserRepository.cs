@@ -62,7 +62,7 @@ public class UserRepository : IUserRepository
         {
             Subject = new ClaimsIdentity(new Claim[]
             {
-                new Claim(ClaimTypes.Name, user.Id.ToString()),
+                new Claim(ClaimTypes.Name, user.UserName!),
                 new Claim(ClaimTypes.Role, roles.FirstOrDefault()!)
             }),
             Expires = DateTime.UtcNow.AddDays(7),
@@ -75,7 +75,7 @@ public class UserRepository : IUserRepository
         {
             User = _mapper.Map<UserDto>(user),
             Token = tokenHandler.WriteToken(token),
-            Role = roles.FirstOrDefault()
+            //Role = roles.FirstOrDefault()
         };
         
         return loginResponseDto;
