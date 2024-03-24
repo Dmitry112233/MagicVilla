@@ -1,3 +1,4 @@
+using MagicVilla_Utility;
 using MagicVilla_Web.Models;
 using MagicVilla_Web.Models.Dto;
 using MagicVilla_Web.Services.IServices;
@@ -21,7 +22,7 @@ public class VillaNumberService : BaseService, IVillaNumberService
         return SendAsync<T>(new ApiRequest()
         {
             ApiType = ApiType.GET,
-            Url =  villaUrl + "/api/v1/VillaNumberApi",
+            Url =  villaUrl + $"/api/{Sd.CurrentApiVersion}/VillaNumberApi",
             Token = token
         });
     }
@@ -31,7 +32,7 @@ public class VillaNumberService : BaseService, IVillaNumberService
         return SendAsync<T>(new ApiRequest()
         {
             ApiType = ApiType.GET,
-            Url = villaUrl + $"/api/v1/VillaNumberApi/{id}",
+            Url = villaUrl + $"/api/{Sd.CurrentApiVersion}/VillaNumberApi/{id}",
             Token = token
         });
     }
@@ -41,7 +42,7 @@ public class VillaNumberService : BaseService, IVillaNumberService
         return SendAsync<T>(new ApiRequest()
         {
             ApiType = ApiType.POST,
-            Url = villaUrl + "/api/v1/VillaNumberApi",
+            Url = villaUrl + $"/api/{Sd.CurrentApiVersion}/VillaNumberApi",
             Data = dto,
             Token = token
         });
@@ -52,7 +53,7 @@ public class VillaNumberService : BaseService, IVillaNumberService
         return SendAsync<T>(new ApiRequest()
         {
             ApiType = ApiType.PUT,
-            Url = villaUrl + $"/api/v1/VillaNumberApi/{dto.VillaNo}",
+            Url = villaUrl + $"/api/{Sd.CurrentApiVersion}/VillaNumberApi/{dto.VillaNo}",
             Data = dto,
             Token = token
         });
@@ -63,7 +64,7 @@ public class VillaNumberService : BaseService, IVillaNumberService
         return SendAsync<T>(new ApiRequest()
         {
             ApiType = ApiType.DELETE,
-            Url = villaUrl + $"/api/v1/VillaNumberApi/{id}",
+            Url = villaUrl + $"/api/{Sd.CurrentApiVersion}/VillaNumberApi/{id}",
             Token = token
         });
     }

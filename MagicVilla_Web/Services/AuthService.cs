@@ -22,7 +22,7 @@ public class AuthService: BaseService, IAuthService
         {
             ApiType = Sd.ApiType.POST,
             Data = loginModel,
-            Url = villaUrl + "/api/v1/UsersApi/login"
+            Url = villaUrl + $"/api/{Sd.CurrentApiVersion}/UsersApi/login"
         });
     }
 
@@ -32,7 +32,7 @@ public class AuthService: BaseService, IAuthService
         {
             ApiType = Sd.ApiType.POST,
             Data = registerModel,
-            Url = villaUrl + "/api/v1/UsersApi/register"
+            Url = villaUrl + $"/api/{Sd.CurrentApiVersion}/UsersApi/register"
         });
     }
 }

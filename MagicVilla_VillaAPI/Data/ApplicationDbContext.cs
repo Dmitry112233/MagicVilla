@@ -33,7 +33,7 @@ public class ApplicationDbContext : IdentityDbContext
                   Rate = 200,
                   Sqft = 550,
                   Amenity = "",
-                  CreatedDate = DateTime.Now
+                  CreatedDate = new DateTime(2000, 01, 01)
               },
               new Villa
               {
@@ -45,7 +45,7 @@ public class ApplicationDbContext : IdentityDbContext
                   Rate = 300,
                   Sqft = 550,
                   Amenity="",
-                  CreatedDate = DateTime.Now
+                  CreatedDate = new DateTime(2000, 01, 01)
               },
               new Villa
               {
@@ -57,7 +57,7 @@ public class ApplicationDbContext : IdentityDbContext
                   Rate = 400,
                   Sqft = 750,
                   Amenity = "",
-                  CreatedDate = DateTime.Now
+                  CreatedDate = new DateTime(2000, 01, 01)
               },
               new Villa
               {
@@ -69,7 +69,7 @@ public class ApplicationDbContext : IdentityDbContext
                   Rate = 550,
                   Sqft = 900,
                   Amenity = "",
-                  CreatedDate = DateTime.Now
+                  CreatedDate = new DateTime(2000, 01, 01)
               },
               new Villa
               {
@@ -81,7 +81,7 @@ public class ApplicationDbContext : IdentityDbContext
                   Rate = 600,
                   Sqft = 1100,
                   Amenity = "",
-                  CreatedDate = DateTime.Now
+                  CreatedDate = new DateTime(2000, 01, 01)
               });
     }
 }

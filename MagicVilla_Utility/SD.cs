@@ -11,4 +11,5 @@ public static class Sd
     }
 
     public static string SessionToken = "JWTToken";
+    public static string CurrentApiVersion = "v2";
 }
