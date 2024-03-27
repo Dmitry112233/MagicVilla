@@ -7,6 +7,7 @@ using MagicVilla_Web.Services.IServices;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Newtonsoft.Json;
 
 namespace MagicVilla_Web.Controllers;
@@ -55,6 +56,12 @@ public class AuthController : Controller
     [HttpGet]
     public IActionResult Register()
     {
+        var roleList = new List<SelectListItem>()
+        {
+            new() { Text = Sd.Admin, Value = Sd.Admin },
+            new() { Text = Sd.Customer, Value = Sd.Customer }
+        };
+        ViewBag.RoleList = roleList;
         return View();
     }
     
@@ -62,11 +69,23 @@ public class AuthController : Controller
     [ValidateAntiForgeryToken]
     public async Task<IActionResult> Register(RegistrationRequestDto model)
     {
+        if (string.IsNullOrEmpty(model.Role))
+        {
+            model.Role = Sd.Customer;
+        }
+            
         var response = await _authService.RegisterAsync<ApiResponse>(model);
         if (response != null && response.IsSuccess)
         {
            return RedirectToAction("Login");
         }
+        var roleList = new List<SelectListItem>()
+        {
+            new() { Text = Sd.Admin, Value = Sd.Admin },
+            new() { Text = Sd.Customer, Value = Sd.Customer }
+        };
+        ViewBag.RoleList = roleList;
+        ModelState.AddModelError("CustomError", response.ErrorMessages.FirstOrDefault());
         return View();
     }
     

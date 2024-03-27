@@ -1,4 +1,6 @@
-﻿namespace MagicVilla_Utility;
+﻿using System.Net.Mime;
+
+namespace MagicVilla_Utility;
 
 public static class Sd
 {
@@ -12,4 +14,12 @@ public static class Sd
 
     public static string SessionToken = "JWTToken";
     public static string CurrentApiVersion = "v2";
+    public static string Admin = "admin";
+    public static string Customer = "customer";
+    
+    public enum ContentType
+    {
+        Json, 
+        MultipartFormData
+    }
 }

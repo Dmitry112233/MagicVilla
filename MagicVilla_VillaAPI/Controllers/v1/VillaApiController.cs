@@ -29,7 +29,7 @@ public class VillaApiController : ControllerBase
     [ProducesResponseType(StatusCodes.Status401Unauthorized)]
     [ProducesResponseType(StatusCodes.Status403Forbidden)]
     [ProducesResponseType(StatusCodes.Status200OK)]
-    [ResponseCache(CacheProfileName = "Default30")]
+    //[ResponseCache(CacheProfileName = "Default30")]
     public async Task<ActionResult<ApiResponse>> GetVillas([FromQuery(Name = "filterOccupancy")]int? occupancy, [FromQuery(Name = "searchName")]string? search, int pageSize = 0, int pageNumber = 1)
     {
         try

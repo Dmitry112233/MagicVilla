@@ -59,10 +59,10 @@ builder.Services.AddAuthentication(x =>
 
 builder.Services.AddControllers(option =>
     {
-        option.CacheProfiles.Add("Default30", new CacheProfile()
+        /*option.CacheProfiles.Add("Default30", new CacheProfile()
         {
             Duration = 30
-        });
+        });*/
     }).AddNewtonsoftJson()
     .AddXmlDataContractSerializerFormatters();
 
@@ -123,7 +123,7 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
-
+app.UseStaticFiles();
 app.UseAuthentication();
 app.UseAuthorization();
 
