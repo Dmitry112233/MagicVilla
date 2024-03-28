@@ -33,7 +33,7 @@ public class VillaController : Controller
     {
         if (ModelState.IsValid)
         {
-            var response = await _villaService.CreateAsync<ApiResponse>(model, HttpContext.Session.GetString(Sd.SessionToken));
+            var response = await _villaService.CreateAsync<ApiResponse>(model);
             if (response != null && response.IsSuccess)
             {
                 TempData["success"] = "Villa created successfully";
@@ -48,7 +48,7 @@ public class VillaController : Controller
     [Authorize(Roles = "admin")]
     public async Task<IActionResult> UpdateVilla(int villaId)
     {
-        var response = await _villaService.GetAsync<ApiResponse>(villaId, HttpContext.Session.GetString(Sd.SessionToken));
+        var response = await _villaService.GetAsync<ApiResponse>(villaId);
         if (response != null && response.IsSuccess)
         {
             VillaDto model = JsonConvert.DeserializeObject<VillaDto>(Convert.ToString(response.Result));
@@ -66,7 +66,7 @@ public class VillaController : Controller
     {
         if (ModelState.IsValid)
         {
-            var response = await _villaService.UpdateAsync<ApiResponse>(model, HttpContext.Session.GetString(Sd.SessionToken));
+            var response = await _villaService.UpdateAsync<ApiResponse>(model);
             if (response != null && response.IsSuccess)
             {
                 TempData["success"] = "Villa updated successfully";
@@ -81,7 +81,7 @@ public class VillaController : Controller
     [Authorize(Roles = "admin")]
     public async Task<IActionResult> DeleteVilla(int villaId)
     {
-        var response = await _villaService.GetAsync<ApiResponse>(villaId, HttpContext.Session.GetString(Sd.SessionToken));
+        var response = await _villaService.GetAsync<ApiResponse>(villaId);
         if (response != null && response.IsSuccess)
         {
             VillaDto model = JsonConvert.DeserializeObject<VillaDto>(Convert.ToString(response.Result));
@@ -97,7 +97,7 @@ public class VillaController : Controller
     [ValidateAntiForgeryToken]
     public async Task<IActionResult> DeleteVilla(VillaDto model)
     {
-        var response = await _villaService.DeleteAsync<ApiResponse>(model.Id, HttpContext.Session.GetString(Sd.SessionToken));
+        var response = await _villaService.DeleteAsync<ApiResponse>(model.Id);
         if (response != null && response.IsSuccess)
         {
             TempData["success"] = "Villa deleted successfully";
@@ -112,7 +112,7 @@ public class VillaController : Controller
     public async Task<IActionResult> IndexVilla()
     {
         List<VillaDto> list = new();
-        var response = await _villaService.GetAllAsync<ApiResponse>(HttpContext.Session.GetString(Sd.SessionToken));
+        var response = await _villaService.GetAllAsync<ApiResponse>();
         if (response != null)
         {
             list = JsonConvert.DeserializeObject<List<VillaDto>>(Convert.ToString(response.Result));

@@ -14,13 +14,16 @@ public class BaseService : IBaseService
 
     public IHttpClientFactory httpClient { get; set; }
 
-    public BaseService(IHttpClientFactory httpClient)
+    private readonly ITokenProvider _tokenProvider;
+
+    public BaseService(IHttpClientFactory httpClient, ITokenProvider tokenProvider)
     {
         responseModel = new();
         this.httpClient = httpClient;
+        _tokenProvider = tokenProvider;
     }
 
-    public async Task<T> SendAsync<T>(ApiRequest apiRequest)
+    public async Task<T> SendAsync<T>(ApiRequest apiRequest, bool withBearer = true)
     {
         try
         {
@@ -36,6 +39,10 @@ public class BaseService : IBaseService
             }
             message.RequestUri = new Uri(apiRequest.Url);
 
+            if (withBearer && _tokenProvider.GetToken() != null)
+            {
+                client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", _tokenProvider.GetToken()!.AccessToken);
+            }
             if (apiRequest.ContentType == ContentType.MultipartFormData)
             {
                 var content = new MultipartFormDataContent();

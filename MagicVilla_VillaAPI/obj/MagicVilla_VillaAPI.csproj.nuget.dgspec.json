@@ -4,6 +4,60 @@
     "/Users/dmitrys/repositories/MagicVilla/MagicVilla_VillaAPI/MagicVilla_VillaAPI.csproj": {}
   },
   "projects": {
+    "/Users/dmitrys/repositories/MagicVilla/MagicVilla_Utility/MagicVilla_Utility.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "/Users/dmitrys/repositories/MagicVilla/MagicVilla_Utility/MagicVilla_Utility.csproj",
+        "projectName": "MagicVilla_Utility",
+        "projectPath": "/Users/dmitrys/repositories/MagicVilla/MagicVilla_Utility/MagicVilla_Utility.csproj",
+        "packagesPath": "/Users/dmitrys/.nuget/packages/",
+        "outputPath": "/Users/dmitrys/repositories/MagicVilla/MagicVilla_Utility/obj/",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "/Users/dmitrys/.nuget/NuGet/NuGet.Config"
+        ],
+        "originalTargetFrameworks": [
+          "net7.0"
+        ],
+        "sources": {
+          "https://api.nuget.org/v3/index.json": {},
+          "https://myitprocess-nuget.azurewebsites.net/nuget/": {}
+        },
+        "frameworks": {
+          "net7.0": {
+            "targetAlias": "net7.0",
+            "projectReferences": {}
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "net7.0": {
+          "targetAlias": "net7.0",
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48",
+            "net481"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/7.0.308/RuntimeIdentifierGraph.json"
+        }
+      }
+    },
     "/Users/dmitrys/repositories/MagicVilla/MagicVilla_VillaAPI/MagicVilla_VillaAPI.csproj": {
       "version": "1.0.0",
       "restore": {
@@ -27,7 +81,11 @@
         "frameworks": {
           "net7.0": {
             "targetAlias": "net7.0",
-            "projectReferences": {}
+            "projectReferences": {
+              "/Users/dmitrys/repositories/MagicVilla/MagicVilla_Utility/MagicVilla_Utility.csproj": {
+                "projectPath": "/Users/dmitrys/repositories/MagicVilla/MagicVilla_Utility/MagicVilla_Utility.csproj"
+              }
+            }
           }
         },
         "warningProperties": {

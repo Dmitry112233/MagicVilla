@@ -5,34 +5,36 @@ using MagicVilla_Web.Services.IServices;
 
 namespace MagicVilla_Web.Services;
 
-public class AuthService: BaseService, IAuthService
+public class AuthService: IAuthService
 {
     private readonly IHttpClientFactory _clientFactory;
     private string villaUrl;
+    private readonly IBaseService _baseService;
     
-    public AuthService(IHttpClientFactory clientFactory, IConfiguration configuration) : base(clientFactory)
+    public AuthService(IHttpClientFactory clientFactory, IConfiguration configuration, IBaseService baseService)
     {
         _clientFactory = clientFactory;
         villaUrl = configuration.GetValue<string>("ServiceUrl:VillaAPI");
+        _baseService = baseService;
     }
 
-    public Task<T> LoginAsync<T>(LoginRequestDto loginModel)
+    public async Task<T> LoginAsync<T>(LoginRequestDto loginModel)
     { 
-        return SendAsync<T>(new ApiRequest()
+        return await _baseService.SendAsync<T>(new ApiRequest()
         {
             ApiType = Sd.ApiType.POST,
             Data = loginModel,
             Url = villaUrl + $"/api/{Sd.CurrentApiVersion}/UsersApi/login"
-        });
+        }, withBearer:false);
     }
 
-    public Task<T> RegisterAsync<T>(RegistrationRequestDto registerModel)
+    public async Task<T> RegisterAsync<T>(RegistrationRequestDto registerModel)
     {
-        return SendAsync<T>(new ApiRequest()
+        return await _baseService.SendAsync<T>(new ApiRequest()
         {
             ApiType = Sd.ApiType.POST,
             Data = registerModel,
             Url = villaUrl + $"/api/{Sd.CurrentApiVersion}/UsersApi/register"
-        });
+        }, withBearer:false);
     }
 }

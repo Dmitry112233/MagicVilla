@@ -39,7 +39,7 @@ public class UserRepository : IUserRepository
         return false;
     }
 
-    public async Task<LoginResponseDto> Login(LoginRequestDto loginRequestDto)
+    public async Task<TokenDto> Login(LoginRequestDto loginRequestDto)
     {
         var user = _db.ApplicationUsers.FirstOrDefault(x => x.UserName.ToLower() == loginRequestDto.UserName.ToLower());
 
@@ -47,38 +47,21 @@ public class UserRepository : IUserRepository
         
         if (user == null || isValid == false)
         {
-            return new LoginResponseDto()
+            return new TokenDto()
             {
-                Token = string.Empty,
-                User = null
+                AccessToken = string.Empty,
             };
         }
 
-        var roles = await _userManager.GetRolesAsync(user);
-        var tokenHandler = new JwtSecurityTokenHandler();
-        var key = Encoding.ASCII.GetBytes(secretKey);
-
-        var tokenDescriptor = new SecurityTokenDescriptor()
+        var accessToken = await GetAccessToken(user);
+        
+        TokenDto tokenDto = new()
         {
-            Subject = new ClaimsIdentity(new Claim[]
-            {
-                new Claim(ClaimTypes.Name, user.UserName!),
-                new Claim(ClaimTypes.Role, roles.FirstOrDefault()!)
-            }),
-            Expires = DateTime.UtcNow.AddDays(7),
-            SigningCredentials = new(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature)
-        };
-
-        var token = tokenHandler.CreateToken(tokenDescriptor);
-
-        LoginResponseDto loginResponseDto = new()
-        {
-            User = _mapper.Map<UserDto>(user),
-            Token = tokenHandler.WriteToken(token),
+            AccessToken = accessToken
             //Role = roles.FirstOrDefault()
         };
         
-        return loginResponseDto;
+        return tokenDto;
     }
 
     public async Task<UserDto> Register(RegistrationRequestDto registrationRequestDto)
@@ -113,5 +96,26 @@ public class UserRepository : IUserRepository
         }
 
         return null;
+    }
+
+    private async Task<string> GetAccessToken(ApplicationUser user)
+    {
+        var roles = await _userManager.GetRolesAsync(user);
+        var tokenHandler = new JwtSecurityTokenHandler();
+        var key = Encoding.ASCII.GetBytes(secretKey);
+
+        var tokenDescriptor = new SecurityTokenDescriptor()
+        {
+            Subject = new ClaimsIdentity(new Claim[]
+            {
+                new Claim(ClaimTypes.Name, user.UserName!),
+                new Claim(ClaimTypes.Role, roles.FirstOrDefault()!)
+            }),
+            Expires = DateTime.UtcNow.AddDays(7),
+            SigningCredentials = new(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature)
+        };
+
+        var token = tokenHandler.CreateToken(tokenDescriptor);
+        return tokenHandler.WriteToken(token);
     }
 }

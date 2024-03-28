@@ -1400,6 +1400,16 @@
             "rid": "win"
           }
         }
+      },
+      "MagicVilla_Utility/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v7.0",
+        "compile": {
+          "bin/placeholder/MagicVilla_Utility.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/MagicVilla_Utility.dll": {}
+        }
       }
     }
   },
@@ -3880,11 +3890,17 @@
         "system.windows.extensions.nuspec",
         "useSharedDesignerContext.txt"
       ]
+    },
+    "MagicVilla_Utility/1.0.0": {
+      "type": "project",
+      "path": "../MagicVilla_Utility/MagicVilla_Utility.csproj",
+      "msbuildProject": "../MagicVilla_Utility/MagicVilla_Utility.csproj"
     }
   },
   "projectFileDependencyGroups": {
     "net7.0": [
       "AutoMapper >= 13.0.1",
+      "MagicVilla_Utility >= 1.0.0",
       "Microsoft.AspNetCore.Authentication.JwtBearer >= 7.0.16",
       "Microsoft.AspNetCore.Identity.EntityFrameworkCore >= 7.0.0",
       "Microsoft.AspNetCore.JsonPatch >= 7.0.16",
@@ -3925,7 +3941,11 @@
       "frameworks": {
         "net7.0": {
           "targetAlias": "net7.0",
-          "projectReferences": {}
+          "projectReferences": {
+            "/Users/dmitrys/repositories/MagicVilla/MagicVilla_Utility/MagicVilla_Utility.csproj": {
+              "projectPath": "/Users/dmitrys/repositories/MagicVilla/MagicVilla_Utility/MagicVilla_Utility.csproj"
+            }
+          }
         }
       },
       "warningProperties": {

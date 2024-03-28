@@ -1,5 +1,4 @@
 using AutoMapper;
-using MagicVilla_Utility;
 using MagicVilla_Web.Models;
 using MagicVilla_Web.Models.Dto;
 using MagicVilla_Web.Models.ViewModel;
@@ -27,7 +26,7 @@ public class VillaNumberController : Controller
     public async Task<IActionResult> IndexVillaNumber()
     {
         List<VillaNumberDto> list = new();
-        var response = await _villaNumberService.GetAllAsync<ApiResponse>(HttpContext.Session.GetString(Sd.SessionToken));
+        var response = await _villaNumberService.GetAllAsync<ApiResponse>();
         if (response != null)
         {
             list = JsonConvert.DeserializeObject<List<VillaNumberDto>>(Convert.ToString(response.Result));
@@ -41,7 +40,7 @@ public class VillaNumberController : Controller
     public async Task<IActionResult> CreateVillaNumber()
     {
         VillaNumberCreateViewModel villaNumberCreateViewModel = new();
-        var response = await _villaService.GetAllAsync<ApiResponse>(HttpContext.Session.GetString(Sd.SessionToken));
+        var response = await _villaService.GetAllAsync<ApiResponse>();
         
         if (response != null && response.IsSuccess)
         {
@@ -62,7 +61,7 @@ public class VillaNumberController : Controller
     {
         if (ModelState.IsValid)
         {
-            var response = await _villaNumberService.CreateAsync<ApiResponse>(villa.VillaNumber, HttpContext.Session.GetString(Sd.SessionToken));
+            var response = await _villaNumberService.CreateAsync<ApiResponse>(villa.VillaNumber);
             if (response != null && response.IsSuccess)
             {
                 return RedirectToAction(nameof(IndexVillaNumber));
@@ -75,7 +74,7 @@ public class VillaNumberController : Controller
             }
         }
         
-        var responseIfError = await _villaService.GetAllAsync<ApiResponse>(HttpContext.Session.GetString(Sd.SessionToken));
+        var responseIfError = await _villaService.GetAllAsync<ApiResponse>();
         
         if (responseIfError != null && responseIfError.IsSuccess)
         {
@@ -93,14 +92,14 @@ public class VillaNumberController : Controller
     public async Task<IActionResult> UpdateVillaNumber(int villaNo)
     {
         VillaNumberUpdateViewModel villaNumberUpdateViewModel = new();
-        var response = await _villaNumberService.GetAsync<ApiResponse>(villaNo, HttpContext.Session.GetString(Sd.SessionToken));
+        var response = await _villaNumberService.GetAsync<ApiResponse>(villaNo);
         if (response != null && response.IsSuccess)
         {
             VillaNumberDto model = JsonConvert.DeserializeObject<VillaNumberDto>(Convert.ToString(response.Result));
             villaNumberUpdateViewModel.VillaNumber = _mapper.Map<VillaNumberUpdateDto>(model);
         }
         
-        response = await _villaService.GetAllAsync<ApiResponse>(HttpContext.Session.GetString(Sd.SessionToken));
+        response = await _villaService.GetAllAsync<ApiResponse>();
         
         if (response != null && response.IsSuccess)
         {
@@ -122,7 +121,7 @@ public class VillaNumberController : Controller
     {
         if (ModelState.IsValid)
         {
-            var response = await _villaNumberService.UpdateAsync<ApiResponse>(model.VillaNumber, HttpContext.Session.GetString(Sd.SessionToken));
+            var response = await _villaNumberService.UpdateAsync<ApiResponse>(model.VillaNumber);
             if (response != null && response.IsSuccess)
             {
                 return RedirectToAction(nameof(IndexVillaNumber));
@@ -135,7 +134,7 @@ public class VillaNumberController : Controller
             }
         }
         
-        var responseIfError = await _villaService.GetAllAsync<ApiResponse>(HttpContext.Session.GetString(Sd.SessionToken));
+        var responseIfError = await _villaService.GetAllAsync<ApiResponse>();
         
         if (responseIfError != null && responseIfError.IsSuccess)
         {
@@ -153,14 +152,14 @@ public class VillaNumberController : Controller
     public async Task<IActionResult> DeleteVillaNumber(int villaNo)
     {
         VillaNumberDeleteViewModel villaNumberDeleteViewModel = new();
-        var response = await _villaNumberService.GetAsync<ApiResponse>(villaNo, HttpContext.Session.GetString(Sd.SessionToken));
+        var response = await _villaNumberService.GetAsync<ApiResponse>(villaNo);
         if (response != null && response.IsSuccess)
         {
             VillaNumberDto model = JsonConvert.DeserializeObject<VillaNumberDto>(Convert.ToString(response.Result));
             villaNumberDeleteViewModel.VillaNumber = model;
         }
         
-        response = await _villaService.GetAllAsync<ApiResponse>(HttpContext.Session.GetString(Sd.SessionToken));
+        response = await _villaService.GetAllAsync<ApiResponse>();
         
         if (response != null && response.IsSuccess)
         {
@@ -180,7 +179,7 @@ public class VillaNumberController : Controller
     [ValidateAntiForgeryToken]
     public async Task<IActionResult> DeleteVillaNumber(VillaNumberDeleteViewModel model)
     {
-        var response = await _villaNumberService.DeleteAsync<ApiResponse>(model.VillaNumber.VillaNo, HttpContext.Session.GetString(Sd.SessionToken));
+        var response = await _villaNumberService.DeleteAsync<ApiResponse>(model.VillaNumber.VillaNo);
         if (response != null && response.IsSuccess)
         {
             return RedirectToAction(nameof(IndexVillaNumber));
